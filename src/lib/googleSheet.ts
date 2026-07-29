@@ -1,3 +1,4 @@
+import { getAllProfilePhotos } from "./storage";
 export const SHEET_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vTs70nLLTlMyINkERvg_rbm6NM-2NKHHClAmC9sgizKslbbpXNIS-3jmrY8EK1S_YJhZ4TpokxEX--M/pub?gid=949057179&single=true&output=csv";
 
@@ -118,5 +119,21 @@ export async function getStudents() {
 
   students.sort((a, b) => b.points - a.points);
 
-  return students;
+// Get all profile photos from Supabase
+const photos = await getAllProfilePhotos();
+
+const photoMap = new Map(
+  photos.map((photo) => [
+    photo.gmail.toLowerCase(),
+    photo.photo_url,
+  ])
+);
+
+// Merge photo URL into each student
+const studentsWithPhotos = students.map((student) => ({
+  ...student,
+  photoUrl: photoMap.get(student.gmail.toLowerCase()) || "",
+}));
+
+return studentsWithPhotos;
 }

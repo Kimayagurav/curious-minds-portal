@@ -5,6 +5,7 @@ interface Student {
   batch: string;
   questions: number;
   studyHours: number;
+  photoUrl?: string;
 }
 
 interface LeaderboardCardProps {
@@ -30,17 +31,25 @@ export default function LeaderboardCard({
 
         <div className="flex items-center gap-4 flex-1">
 
-          <div className="relative flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 text-2xl md:text-3xl font-bold text-black shadow-lg">
+          <div className="relative h-16 w-16 md:h-20 md:w-20">
 
-            {student.name?.charAt(0)?.toUpperCase() || "S"}
+  {student.photoUrl ? (
+    <img
+      src={student.photoUrl}
+      alt={student.name}
+      className="h-full w-full rounded-full object-cover border-2 border-yellow-400 shadow-lg"
+    />
+  ) : (
+    <div className="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600 text-2xl md:text-3xl font-bold text-black shadow-lg">
+      {student.name?.charAt(0)?.toUpperCase() || "S"}
+    </div>
+  )}
 
-            <div className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full border-2 border-black bg-black text-sm font-bold text-yellow-400">
+  <div className="absolute -bottom-1 -right-1 flex h-8 w-8 items-center justify-center rounded-full border-2 border-black bg-black text-sm font-bold text-yellow-400">
+    #{rank}
+  </div>
 
-              #{rank}
-
-            </div>
-
-          </div>
+</div>
 
           <div className="min-w-0">
 

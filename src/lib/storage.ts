@@ -93,3 +93,12 @@ export async function deleteProfilePhoto(
 
   if (error) throw error;
 }
+export async function getAllProfilePhotos() {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("gmail, photo_url");
+
+  if (error) throw error;
+
+  return data || [];
+}
