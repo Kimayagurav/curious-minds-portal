@@ -81,12 +81,17 @@ export default function DashboardPage() {
 
       const students = await getStudents();
 
-      const latestStudent = students.find(
-        (s) =>
-          s.gmail.trim().toLowerCase() ===
-          loggedInStudent.gmail.trim().toLowerCase()
-      );
-
+      const latestStudent = students
+  .filter(
+    (s) =>
+      s.gmail.trim().toLowerCase() ===
+      loggedInStudent.gmail.trim().toLowerCase()
+  )
+  .sort(
+    (a, b) =>
+      new Date(b.timestamp).getTime() -
+      new Date(a.timestamp).getTime()
+  )[0];
       const updatedStudent = latestStudent
         ? {
             ...loggedInStudent,

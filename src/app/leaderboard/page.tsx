@@ -2,8 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-import { getStudents } from "@/lib/googleSheet";
-
+import { getLeaderboardStudents } from "@/lib/leaderboard";
 import StudentNavbar from "@/components/ui/StudentNavbar";
 import FilterTabs from "@/components/leaderboard/FilterTabs";
 import SearchBar from "@/components/leaderboard/SearchBar";
@@ -20,7 +19,7 @@ export default function LeaderboardPage() {
 
   useEffect(() => {
     async function loadStudents() {
-      const data = await getStudents();
+      const data = await getLeaderboardStudents();
 
       console.log("Students Parsed:", data);
 
